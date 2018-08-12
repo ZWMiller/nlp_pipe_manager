@@ -6,7 +6,7 @@ vectorizers, models, etc. I almost always resort to writing some awful
 function that hacks those bits together and then prints out some scoring
 piece. To help manage all of this better, I've developed a pipelining system
 that allows the user to load all of the pieces into a class and then let the
-class to the management for them. 
+class do the management for them. 
 
 Examples of using the pipeline:
 
