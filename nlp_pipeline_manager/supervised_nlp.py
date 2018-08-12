@@ -1,6 +1,7 @@
 from nlp_preprocessor import nlp_preprocessor
 from nlpipe import nlpipe
 
+
 class supervised_nlp(nlpipe):
     
     def __init__(self, model, preprocessing_pipeline=None):
@@ -43,4 +44,29 @@ class supervised_nlp(nlpipe):
         """
         test_data = self.preprocessor.transform(X)
         return self.model.score(test_data, y)
-    
+
+
+if __name__ == "__main__":
+    from sklearn import datasets
+
+    categories = ['alt.atheism', 'comp.graphics', 'rec.sport.baseball']
+    ng_train = datasets.fetch_20newsgroups(subset='train',
+                                           categories=categories,
+                                           remove=('headers',
+                                                   'footers', 'quotes'))
+    ng_train_data = ng_train.data
+    ng_train_targets = ng_train.target
+
+    ng_test = datasets.fetch_20newsgroups(subset='test',
+                                          categories=categories,
+                                          remove=('headers',
+                                                  'footers', 'quotes'))
+
+    ng_test_data = ng_test.data
+    ng_test_targets = ng_test.target
+
+    from sklearn.naive_bayes import MultinomialNB
+
+    nlp_pipe = supervised_nlp(MultinomialNB())
+    nlp_pipe.fit(ng_train_data, ng_train_targets)
+    print("Accuracy: ", nlp_pipe.score(ng_test_data, ng_test_targets))

@@ -1,10 +1,10 @@
 from sklearn.feature_extraction.text import CountVectorizer
-import pickle
 from nlpipe import nlpipe
 
+
 class nlp_preprocessor(nlpipe):
-   
-    def __init__(self, vectorizer=CountVectorizer(), tokenizer=None, cleaning_function=None, 
+
+    def __init__(self, vectorizer=CountVectorizer(), tokenizer=None, cleaning_function=None,
                  stemmer=None):
         """
         A class for pipelining our data in NLP problems. The user provides a series of 
@@ -59,13 +59,25 @@ class nlp_preprocessor(nlpipe):
         self.vectorizer.fit(clean_text)
         self._is_fit = True
         
-    def transform(self, text):
+    def transform(self, text, return_clean_text=False):
         """
         Cleans any provided data and then transforms the data into
-        a vectorized format based on the fit function. Returns the
+        a vectorized format based on the fit function.
+        If return_clean_text is set to True, it returns the cleaned
+        form of the text. If it's set to False, it returns the
         vectorized form of the data.
         """
         if not self._is_fit:
             raise ValueError("Must fit the models before transforming!")
         clean_text = self.cleaning_function(text, self.tokenizer, self.stemmer)
+        if return_clean_text:
+            return clean_text
         return self.vectorizer.transform(clean_text)
+
+
+if __name__ == '__main__':
+    corpus = ['Testing the', 'class for', 'good behavior.']
+    nlp = nlp_preprocessor()
+    nlp.fit(corpus)
+    print(nlp.transform(corpus,return_clean_text=True))
+    print(nlp.transform(corpus).toarray())

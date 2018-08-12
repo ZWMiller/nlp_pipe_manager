@@ -1,5 +1,6 @@
 import pickle
 
+
 class nlpipe:
     
     def __init__(self):
