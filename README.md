@@ -25,12 +25,12 @@ array([[1, 1, 0, 0, 0, 1, 0, 0],
        [0, 0, 1, 0, 0, 0, 1, 1]])
 ```
 
-Loading a stemmer into the pipeline:
+Loading a stemmer into the pipeline (we actually pass in the stemming method):
 
 ```python
 from nltk.stem import PorterStemmer
 
-nlp = nlp_preprocessor(stemmer=PorterStemmer())
+nlp = nlp_preprocessor(stemmer=PorterStemmer().stem)
 ```
 
 The pipeline allows users to set:
@@ -40,7 +40,7 @@ The pipeline allows users to set:
 at the end)
 * Tokenizer (Either an NLTK tokenizer or a function that takes a string and
 returns a list of tokens)
-* Stemmer (Must have the attribute `.stem` to return the root word)
+* Stemmer (Can be any function that takes in a word and returns a root form - be it a stemmer or a lemmatizer)
 
 If the user wants to provide a cleaning function, it must accept 3 arguments.
 The text, the tokenizer, and the stemmer. Here's an example extra cleaning
@@ -58,7 +58,7 @@ def clean_text(text, tokenizer, stemmer):
             for word in tokenizer(post):
                 low_word = word.lower()
                 if stemmer:
-                    low_word = stemmer.stem(low_word)
+                    low_word = stemmer(low_word)
                 cleaned_words.append(low_word)
             cleaned_text.append(' '.join(cleaned_words))
         return cleaned_text
