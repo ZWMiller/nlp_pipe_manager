@@ -15,8 +15,8 @@ class nlp_preprocessor(nlpipe):
         vectorizer: the model to use for vectorization of text data
         tokenizer: The tokenizer to use, if none defaults to split on spaces
         cleaning_function: how to clean the data, if None, defaults to the in built class
-        stemmer: a nltk model that has the method 'stem' and removes the end of words to 
-        make the root word
+        stemmer: a function that returns a stemmed version of a token. For NLTK, this
+        means getting a stemmer class, then providing the stemming function underneath it.
         """
         if not tokenizer:
             tokenizer = self.splitter
@@ -45,7 +45,7 @@ class nlp_preprocessor(nlpipe):
             for word in tokenizer(post):
                 low_word = word.lower()
                 if stemmer:
-                    low_word = stemmer.stem(low_word)
+                    low_word = stemmer(low_word)
                 cleaned_words.append(low_word)
             cleaned_text.append(' '.join(cleaned_words))
         return cleaned_text
@@ -76,8 +76,11 @@ class nlp_preprocessor(nlpipe):
 
 
 if __name__ == '__main__':
+    from nltk.stem import PorterStemmer
+
+    ps = PorterStemmer()
     corpus = ['Testing the', 'class for', 'good behavior.']
-    nlp = nlp_preprocessor()
+    nlp = nlp_preprocessor(stemmer=ps.stem)
     nlp.fit(corpus)
     print(nlp.transform(corpus,return_clean_text=True))
     print(nlp.transform(corpus).toarray())
