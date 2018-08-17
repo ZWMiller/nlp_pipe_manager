@@ -10,7 +10,8 @@ config = {
   'author_email': 'zach@notarealemail.com',
   'long_description': README_CONTENTS,
   'url': 'https://github.com/zwmiller/nlp_pipe_manager/',
-  'packages': setuptools.find_packages()
+  'packages': setuptools.find_packages(),
+  'install_requires': ['scikit-learn','nltk']
 }
 
 setuptools.setup(**config)
