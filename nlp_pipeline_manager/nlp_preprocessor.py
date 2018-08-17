@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import CountVectorizer
-from nlpipe import nlpipe
+from nlp_pipeline_manager.nlpipe import nlpipe
 
 
 class nlp_preprocessor(nlpipe):

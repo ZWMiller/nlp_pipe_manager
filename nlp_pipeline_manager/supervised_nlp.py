@@ -1,5 +1,5 @@
-from nlp_preprocessor import nlp_preprocessor
-from nlpipe import nlpipe
+from nlp_pipeline_manager.nlp_preprocessor import nlp_preprocessor
+from nlp_pipeline_manager.nlpipe import nlpipe
 
 
 class supervised_nlp(nlpipe):

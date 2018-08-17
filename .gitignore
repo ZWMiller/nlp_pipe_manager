@@ -1,5 +1,8 @@
 *.ipynb_checkpoints*
 .idea/*
+*.egg-info/*
+build/*
+dist/*
 **~
 lunch_and_learn_notes.md
 *.DS_Store*
