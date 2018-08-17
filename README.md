@@ -8,10 +8,22 @@ piece. To help manage all of this better, I've developed a pipelining system
 that allows the user to load all of the pieces into a class and then let the
 class do the management for them. 
 
-Examples of using the pipeline:
+### Installation
+
+Clone this repo. Go to the directory where it is cloned and run:
+
+```bash
+python setup.py install
+```
+
+nlp_pipeline_manager will then install to your machine and be available. This project
+assumes python 3 and requires NLTK and SkLearn.
+
+
+### Examples of using the pipeline:
 
 ```python
-from nlp_preprocessor import nlp_preprocessor
+from nlp_pipeline_manager import nlp_preprocessor
 
 corpus = ['BOB the builder', 'is a strange', 'caRtoon type thing']
 nlp = nlp_preprocessor()
@@ -71,8 +83,8 @@ preprocessor. Two example pipes are shown, one for classification and one for
 topic modeling. Here's an example of using the classification pipe:
 
 ```python
-from supervised_nlp import supervised_nlp
-from nlp_preprocessor import nlp_preprocessor
+from nlp_pipeline_manager import supervised_nlp
+from nlp_pipeline_manager import nlp_preprocessor
 from sklearn.naive_bayes import MultinomialNB
 
 nlp = nlp_preprocessor()
